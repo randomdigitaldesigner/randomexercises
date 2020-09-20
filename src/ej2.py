@@ -22,7 +22,6 @@ class Truncador(Elaboratable):
 if __name__ == '__main__':
     from nmigen.back import verilog
     top = Truncador(width_in=10, width_out=7)
-    ports = top.inputs
-    ports.append(top.output)
+    ports = [top.input, top.output]
     with open("trunc.v", "w") as f:
         f.write(verilog.convert(top, ports=ports))
