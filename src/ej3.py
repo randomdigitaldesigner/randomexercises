@@ -2,11 +2,22 @@ from nmigen import *
 
 
 def sum_saturate(a, b):
+    """
+    equivalente VHDL:
+    a: std_logic_vector(N-1 downto 0)
+    max_a: constante con valor (2^(N-1) - 1)
+    b: constante
+    x: constante Signed con valor (2^(N-1) - 1 - b)
+
+    wrapped_sum <= std_logic_vector(signed(a) + to_signed(b, N))
+    result <= wrapped_sum WHEN signed(a) < to_signed(x, N) ELSE
+              max_a;
+    """
     w = len(a)
-    suma_con_saturacion = (a.as_signed() + b)[:w]
+    wrapped_sum = (a.as_signed() + b)[:w]
     max_a = 2**(w - 1) - 1
-    print(f'max_a={max_a}, b={b}')
-    return Mux(a.as_signed() < max_a - b, suma_con_saturacion, max_a)
+    result = Mux(a.as_signed() < max_a - b, wrapped_sum, max_a)
+    return result
 
 
 class RoundNearest(Elaboratable):
