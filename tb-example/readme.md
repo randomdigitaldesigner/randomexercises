@@ -20,6 +20,12 @@ python3 -m pip install cocotb
 
 ## Uso
 
+Clonar el repositorio e ir a la carpeta con el ejemplo:
+```bash
+git clone https://github.com/randomdigitaldesigner/randomexercises
+cd randomexercises/tb-example
+```
+
 Archivos de entrada:
 * `up_counter.vhd`: contador en VHDL
 * `tb_counter.py`: testbench en Python
