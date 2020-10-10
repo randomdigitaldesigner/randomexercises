@@ -33,3 +33,11 @@ def test_ej4(width_in, width_out):
     core = RoundConvergent(width_in=width_in, width_out=width_out)
     ports = [core.input, core.output]
     run(core, 'tb_ej4', ports=ports, vcd_file='ej4.vcd')
+
+
+@pytest.mark.parametrize("width_in, width_out", [(12, 8)])
+def test_ej5(width_in, width_out):
+    from ej5 import Mean8
+    core = Mean8(width_in=width_in, width_out=width_out)
+    ports = [*core.inputs, core.output]
+    run(core, 'tb_ej5', ports=ports, vcd_file='ej5.vcd')
