@@ -25,7 +25,7 @@ def teardown_function(function):
                                         (ej3_main, 'ej3'),
                                         (ej4_main, 'ej4'),
                                         (ej5_main, 'ej5'),
-                                        (ej5_main, 'ej6'),
+                                        (ej6_main, 'ej6'),
                                         ])
 def test_generate_ej(main, name):
     filename = verilog_dir + '/' + name + '.v'
