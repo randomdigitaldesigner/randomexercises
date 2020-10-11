@@ -9,6 +9,14 @@ def add_debug_signal(signal, name):
 def shift_left(signal, shift):
     return Cat(Repl(0, shift), signal)
 
+def get_req_bits_for_sum(*args):
+    min_values = [-2**(w-1) for w in args]
+    max_values = [2**(w-1)-1 for w in args]
+    lowest = sum(min_values)
+    highest = sum(max_values)
+    dummy_signal = Signal(range(lowest, highest + 1))
+    return dummy_signal.shape().width
+
 
 class SumaPonderada(Elaboratable):
 
@@ -45,12 +53,18 @@ class SumaPonderada(Elaboratable):
                       self.y1_shifted.as_signed()
         self.suma_b = self.suma_a + self.y2_shifted.as_signed()
 
-        self.PoZ = Signal.like(self.suma_b)
+        # bits requeridos para la suma
+        bits = get_req_bits_for_sum(len(self.y0_shifted),
+                                    len(self.y1_shifted),
+                                    len(self.y2_shifted))
+        self.suma = self.suma_b[:bits]
+
+        self.PoZ = Signal.like(self.suma)
 
     def elaborate(self, platform):
         m = Module()
 
-        m.d.comb += self.PoZ.eq(self.suma_b)
+        m.d.comb += self.PoZ.eq(self.suma)
 
         # seniales para debuguear waveforms
         m.d.comb += add_debug_signal(self.y0, 'y0_dbg')
@@ -61,6 +75,7 @@ class SumaPonderada(Elaboratable):
         m.d.comb += add_debug_signal(self.y2_shifted, 'y2_shifted_dbg')
         m.d.comb += add_debug_signal(self.suma_a, 'suma_a_dbg')
         m.d.comb += add_debug_signal(self.suma_b, 'suma_b_dbg')
+        m.d.comb += add_debug_signal(self.suma, 'suma_dbg')
 
         return m
 
