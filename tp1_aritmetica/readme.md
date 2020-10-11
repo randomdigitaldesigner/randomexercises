@@ -1,11 +1,11 @@
 # TP aritmética
 
-Fuentes: https://github.com/randomdigitaldesigner/randomexercises/tree/master/src
+Fuentes: https://github.com/randomdigitaldesigner/randomexercises/tree/master/tp1_aritmetica
 
 Lista de archivos:
 
 ```bash
-src/
+tp1_aritmetica/
 ├── ej1.py # HDL ej1
 ├── ej2.py # HDL ej2
 ├── ej3.py # HDL ej3
@@ -38,7 +38,7 @@ src/
 Clonar el repositorio e ir a la carpeta con el ejemplo:
 ```bash
 git clone https://github.com/randomdigitaldesigner/randomexercises
-cd randomexercises/src
+cd randomexercises/tp1_aritmetica
 ```
 
 Instalar requerimientos:
