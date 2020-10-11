@@ -50,9 +50,9 @@ def main(cmd_args=None):
     import argparse
     from nmigen.back import verilog
     parser = argparse.ArgumentParser()
-    parser.add_argument('--width-in', '-wi', type=int, default=10,
+    parser.add_argument('--width-in', '-wi', type=int, default=12,
                         help='Input port width')
-    parser.add_argument('--width-out', '-wo', type=int, default=7,
+    parser.add_argument('--width-out', '-wo', type=int, default=8,
                         help='Output port width')
     parser.add_argument('output', type=str, help='Output file (Verilog)')
     args = parser.parse_args(cmd_args)
