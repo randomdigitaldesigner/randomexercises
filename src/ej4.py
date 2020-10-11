@@ -42,10 +42,22 @@ class RoundConvergent(Elaboratable):
         return m
 
 
-# si llamas este script, genera el verilog!
-if __name__ == '__main__':
+def main(cmd_args=None):
+    import argparse
     from nmigen.back import verilog
-    top = RoundConvergent(width_in=10, width_out=7)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--width-in', '-wi', type=int, default=10,
+                        help='Input port width')
+    parser.add_argument('--width-out', '-wo', type=int, default=7,
+                        help='Output port width')
+    parser.add_argument('output', type=str, help='Output file (Verilog)')
+    args = parser.parse_args(cmd_args)
+    filename = args.output if args.output.endswith('.v') else args.output + '.v'
+    top = RoundConvergent(width_in=args.width_in, width_out=args.width_out)
     ports = [top.input, top.output]
-    with open("round_convergent.v", "w") as f:
+    with open(filename, "w") as f:
         f.write(verilog.convert(top, ports=ports))
+
+
+if __name__ == '__main__':
+    main()
