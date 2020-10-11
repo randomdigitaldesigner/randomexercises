@@ -40,11 +40,22 @@ class Suma6(Elaboratable):
         return m
 
 
-# si llamas este script, genera el verilog para el caso de 8 bits
-if __name__ == '__main__':
+def main(cmd_args=None):
+    import argparse
     from nmigen.back import verilog
-    top = Suma6(width=8)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--width', '-w', type=int, default=8,
+                        help='Input ports width')
+    parser.add_argument('output', type=str, help='Output file (Verilog)')
+    args = parser.parse_args(cmd_args)
+    filename = args.output if args.output.endswith('.v') else args.output + '.v'
+    top = Suma6(width=args.width)
     ports = top.inputs
     ports.append(top.output)
-    with open("suma6.v", "w") as f:
+    with open(filename, "w") as f:
         f.write(verilog.convert(top, ports=ports))
+
+
+# llamando a este script se genera el verilog!
+if __name__ == '__main__':
+    main()
