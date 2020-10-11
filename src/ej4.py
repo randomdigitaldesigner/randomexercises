@@ -38,7 +38,6 @@ class RoundConvergent(Elaboratable):
         with m.Else():
             m.d.comb += self.output.eq(nearest.output)
 
-
         return m
 
 
