@@ -115,8 +115,9 @@ def main(cmd_args=None):
     parser.add_argument('output', type=str, help='Output file (Verilog)')
     args = parser.parse_args(cmd_args)
     filename = args.output if args.output.endswith('.v') else args.output + '.v'
-    top = Gain(width_in=args.width_in, width_out=args.width_out)
-    ports = [*top.inputs, top.output]
+    top = Gain(width_in=args.width_in, width_gain=args.width_gain,
+               width_out=args.width_out)
+    ports = [top.input, top.gain, top.output]
     with open(filename, "w") as f:
         f.write(verilog.convert(top, ports=ports))
 
