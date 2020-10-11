@@ -8,6 +8,7 @@ from ej3 import main as ej3_main
 from ej4 import main as ej4_main
 from ej5 import main as ej5_main
 from ej6 import main as ej6_main
+from ej7 import main as ej7_main
 
 verilog_dir = 'verilogs'
 
@@ -26,6 +27,7 @@ def teardown_function(function):
                                         (ej4_main, 'ej4'),
                                         (ej5_main, 'ej5'),
                                         (ej6_main, 'ej6'),
+                                        (ej7_main, 'ej7'),
                                         ])
 def test_generate_ej(main, name):
     filename = verilog_dir + '/' + name + '.v'
