@@ -2,6 +2,7 @@ from nmigen import *
 from ej2 import Truncador
 from ej3 import RoundNearest
 from ej4 import RoundConvergent
+from hdl_utils import add_debug_signal
 
 
 _one = Const(1, 1)
@@ -42,6 +43,16 @@ class Mean8(Elaboratable):
 
         m.d.comb += rounding.input.eq(mean)
         m.d.comb += self.output.eq(rounding.output)
+
+        # debug signals
+        for i, s in enumerate(stage_1):
+            m.d.comb += add_debug_signal(s, f'stage1_{i}')
+        for i, s in enumerate(stage_2):
+            m.d.comb += add_debug_signal(s, f'stage2_{i}')
+        for i, s in enumerate(stage_3):
+            m.d.comb += add_debug_signal(s, f'stage3_{i}')
+        m.d.comb += add_debug_signal(mean, 'mean')
+        m.d.comb += add_debug_signal(rounding.output, 'rounded')
 
         return m
 
