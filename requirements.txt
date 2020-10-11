@@ -1,4 +1,0 @@
-pytest
-cocotb
-git+https://github.com/nmigen/nmigen.git#egg=nmigen[builtin-yosys]
-git+https://github.com/andresdemski/nmigen-cocotb.git#egg=nmigen-cocotb
