@@ -2,17 +2,8 @@ from nmigen import *
 from ej2 import Truncador
 from ej3 import RoundNearest
 from ej4 import RoundConvergent
+from hdl_utils import shape_limits, add_debug_signal
 from math import ceil, log2
-
-
-def shape_limits(shape):
-    if shape.signed:
-        _min = -2**(shape.width - 1)
-        _max = 2**(shape.width - 1) - 1
-    else:
-        _min = 0
-        _max = 2**shape.width - 1
-    return (_min, _max)
 
 
 def saturate(signal, lowest, highest):
@@ -27,11 +18,6 @@ def saturate_high(signal, highest):
     _highest = Const(highest, signal.shape())
     return Mux(signal > _highest, _highest,
                signal)
-
-
-def add_debug_signal(signal, name):
-    x = Signal.like(signal, name=name)
-    return x.eq(signal)
 
 
 class Gain(Elaboratable):
