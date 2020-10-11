@@ -1,13 +1,6 @@
 from nmigen import *
+from hdl_utils import add_debug_signal
 
-
-def add_debug_signal(signal, name):
-    x = Signal.like(signal, name=name)
-    return x.eq(signal)
-
-
-def shift_left(signal, shift):
-    return Cat(Repl(0, shift), signal)
 
 def get_req_bits_for_sum(*args):
     min_values = [-2**(w-1) for w in args]
@@ -16,6 +9,10 @@ def get_req_bits_for_sum(*args):
     highest = sum(max_values)
     dummy_signal = Signal(range(lowest, highest + 1))
     return dummy_signal.shape().width
+
+
+def shift_left(signal, shift):
+    return Cat(Repl(0, shift), signal)
 
 
 class SumaPonderada(Elaboratable):
