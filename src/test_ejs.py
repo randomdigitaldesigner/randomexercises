@@ -63,3 +63,13 @@ def test_ej6(width_in, width_gain, width_out):
     core = Gain(width_in=width_in, width_gain=width_gain, width_out=width_out)
     ports = [core.input, core.gain, core.output]
     run(core, 'tb_ej6', ports=ports, vcd_file=waveform_dir + '/ej6.vcd')
+
+
+@pytest.mark.parametrize("width_in, width_gain, width_out", [(12, 10, 14)])
+def test_ej7(width_in, width_gain, width_out):
+    from ej7 import SumaPonderada
+    core = SumaPonderada()
+    ports = [core.PiX0, core.PiX1, core.PiX2,
+             core.PiW0, core.PiW1, core.PiW2,
+             core.PoZ]
+    run(core, 'tb_ej7', ports=ports, vcd_file=waveform_dir + '/ej7.vcd')
